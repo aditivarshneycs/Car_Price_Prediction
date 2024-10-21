@@ -1,0 +1,55 @@
+/* static/style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.bg-dark {
+    background-image: url('path/to/your/background-image.jpg'); /* Update this path */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    border-radius: 10px;
+}
+
+.card-header {
+    background-color: rgba(52, 58, 64, 0.8); /* Slightly transparent dark background for header */
+    color:black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #ab1285;
+    cursor: pointer;
+}
+
+#prediction {
+    color: black;
+    font-weight: bold;
+}

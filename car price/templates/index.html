@@ -1,0 +1,161 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Car Price Predictor</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-dark">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="card mt-50" style="width: 100%; height: 100%">
+          <div class="card-header text-center">
+            <h1>Welcome to Car Price Predictor</h1>
+          </div>
+          <div class="card-body">
+            <div class="col-12 text-center">
+              <h5>
+                This app predicts the price of a car you want to sell. Try
+                filling the details below:
+              </h5>
+            </div>
+            <br />
+            <form id="predictForm">
+              <div class="col-md-10 form-group mx-auto">
+                <label><b>Select the Company:</b></label
+                ><br />
+                <select
+                  class="form-control"
+                  id="company"
+                  name="company"
+                  required
+                  onchange="loadCarModels()"
+                >
+                  <option value="" disabled selected>Select Company</option>
+                  {% for company in companies %}
+                  <option value="{{ company }}">{{ company }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-10 form-group mx-auto">
+                <label><b>Select the Model:</b></label
+                ><br />
+                <select
+                  class="form-control"
+                  id="car_models"
+                  name="car_models"
+                  required
+                >
+                  <option value="" disabled selected>Select Model</option>
+                  <!-- Options will be populated based on selected company -->
+                </select>
+              </div>
+              <div class="col-md-10 form-group mx-auto">
+                <label><b>Select Year of Purchase:</b></label
+                ><br />
+                <select class="form-control" id="year" name="year" required>
+                  <option value="" disabled selected>Select Year</option>
+                  {% for year in years %}
+                  <option value="{{ year }}">{{ year }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-10 form-group mx-auto">
+                <label><b>Select the Fuel Type:</b></label
+                ><br />
+                <select
+                  class="form-control"
+                  id="fuel_type"
+                  name="fuel_type"
+                  required
+                >
+                  <option value="" disabled selected>Select Fuel Type</option>
+                  {% for fuel in fuel_types %}
+                  <option value="{{ fuel }}">{{ fuel }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-10 form-group mx-auto">
+                <label><b>Enter the Number of Kilometres the car has Travelled:</b></label
+                ><br />
+                <input
+                  type="number"
+                  class="form-control"
+                  id="kilo_driven"
+                  name="kilo_driven"
+                  placeholder="Enter kilometres driven"
+                  required
+                  min="0"
+                />
+              </div>
+              <div class="col-md-10 form-group mx-auto">
+                <button type="submit" class="btn btn-primary form-control">
+                  Predict Price
+                </button>
+              </div>
+            </form>
+            <br />
+            <div class="row">
+              <div class="col-12 text-center">
+                <h4><span id="prediction"></span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Data Mapping -->
+    <script>
+      const carData = {
+          {% for company in companies %}
+              "{{ company }}": [
+                  {% for model in car_models %}
+                      {% if model.startswith(company) %}
+                          "{{ model }}",
+                      {% endif %}
+                  {% endfor %}
+              ],
+          {% endfor %}
+      };
+    </script>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Link to the JavaScript file -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
+  
